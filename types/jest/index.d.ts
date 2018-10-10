@@ -197,7 +197,7 @@ declare namespace jest {
      *   spy.mockRestore();
      * });
      */
-    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): MockInstance<T[M]>;
+    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): SpyInstance<T[M]>;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -317,6 +317,7 @@ declare namespace jest {
     }
 
     interface MatcherUtils {
+        readonly expand: boolean;
         readonly isNot: boolean;
         utils: {
             readonly EXPECTED_COLOR: (text: string) => string;
@@ -725,6 +726,8 @@ declare namespace jest {
         new (...args: any[]): T;
         (...args: any[]): any;
     }
+
+    interface SpyInstance<T = {}> extends MockInstance<T> {}
 
     /**
      * Wrap module with mock definitions

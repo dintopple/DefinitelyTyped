@@ -313,6 +313,11 @@ const spy3Mock: jest.Mock<() => string> = spy3
     .mockRejectedValue("value")
     .mockRejectedValueOnce("value");
 
+let spy4: jest.SpyInstance;
+
+spy4 = jest.spyOn(spiedTarget, "returnsString");
+spy4.mockRestore();
+
 /* Snapshot serialization */
 
 const snapshotSerializerPlugin: jest.SnapshotSerializerPlugin = {
@@ -439,6 +444,7 @@ expect.extend({
 expect.extend({
     foo(this: jest.MatcherUtils) {
         const isNot: boolean = this.isNot;
+        const expand: boolean = this.expand;
 
         const expectedColor = this.utils.EXPECTED_COLOR("blue");
         const receivedColor = this.utils.EXPECTED_COLOR("red");
